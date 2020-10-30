@@ -6,6 +6,11 @@ import styled from "styled-components";
 import TaskbanList from "./components/TaskbanList";
 import TrelloActionButton from "./components/TaskbanActionButton";
 
+const AppContainer = styled.div`
+  background-color: orange;
+  height: 100vh;
+  padding: 50px;
+`;
 const ListContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -37,7 +42,7 @@ function App() {
   const lists = useSelector((state) => state.lists);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div>
+      <AppContainer>
         <Droppable droppableId="all-lists" direction="horizontal" type="list">
           {(provided) => (
             <ListContainer 
@@ -58,7 +63,7 @@ function App() {
             </ListContainer>
           )}
         </Droppable>
-      </div>
+      </AppContainer>
     </DragDropContext>
   );
 }

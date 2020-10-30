@@ -18,8 +18,11 @@ const AddFormButton = styled.div`
     cursor: pointer;
     border-radius: 3px;
     height: 36px;
-    width: 272px;
-    padding-left: 10px;
+    width: 285px;
+    &:hover {
+        background-color: black !important;
+        color: white !important;
+    }
 `;
 
 const TaskbanActionButton = (props) => {
@@ -70,7 +73,6 @@ const TaskbanActionButton = (props) => {
             <AddFormButton
                 onClick={() => setFormOpen(true)}
                 style={{
-                    ...styles.openFormButtonGroup,
                     opacity: buttonTextOp,
                     color: buttonTextColor,
                     backgroundColor: buttonTextBackground,
@@ -126,23 +128,6 @@ const TaskbanActionButton = (props) => {
     };
 
     return formOpen ? renderForm() : renderAddButton();
-};
-
-const styles = {
-    openFormButtonGroup: {
-        display: "flex",
-        alignItems: "center",
-        cursor: "pointer",
-        borderRadius: 3,
-        height: 36,
-        width: 272,
-        paddingLeft: 10
-    },
-    formButtonGroup: {
-        marginTop: 8,
-        display: "flex",
-        alignItems: "center"
-    }
 };
 
 export default TaskbanActionButton;

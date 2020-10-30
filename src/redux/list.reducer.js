@@ -70,7 +70,7 @@ const listReducer = (state = initState, action) => {
                 //add the card to new list
                 listEnd.cards.splice(droppableIndexEnd, 0, ...card);
             }
-
+            
             return newState;
         }
         default:
