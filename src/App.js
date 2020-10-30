@@ -1,24 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+
+import TaskbanList from "./components/TaskbanList";
+import TrelloActionButton from "./components/TaskbanActionButton";
+
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 function App() {
+  const dispatch = useDispatch();
+
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId, type } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    dispatch({
+      type: "DRAG_HAPPENED",
+      payload: {
+        droppableIdStart: source.droppableId,
+        droppableIdEnd: destination.droppableId,
+        droppableIndexStart: source.index,
+        droppableIndexEnd: destination.index,
+        draggableId,
+        type
+      },
+    });
+  };
+
+  const lists = useSelector((state) => state.lists);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div>
+        <Droppable droppableId="all-lists" direction="horizontal" type="list">
+          {(provided) => (
+            <ListContainer 
+              {...provided.droppableProps} 
+              ref={provided.innerRef}
+            >
+              {lists.map((list, index) => (
+                <TaskbanList
+                  key={list.id}
+                  listId={list.id}
+                  title={list.title}
+                  cards={list.cards}
+                  index={index}
+                />
+              ))}
+              {provided.placeholder}
+              <TrelloActionButton list />
+            </ListContainer>
+          )}
+        </Droppable>
+      </div>
+    </DragDropContext>
   );
 }
 
