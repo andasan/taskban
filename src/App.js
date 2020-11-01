@@ -44,7 +44,7 @@ function App() {
     <DragDropContext onDragEnd={onDragEnd}>
       <AppContainer>
         <Droppable droppableId="all-lists" direction="horizontal" type="list">
-          {(provided) => (
+          {(provided, snapshot) => (
             <ListContainer 
               {...provided.droppableProps} 
               ref={provided.innerRef}
