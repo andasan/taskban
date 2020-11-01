@@ -61,6 +61,11 @@ const TaskbanActionButton = (props) => {
         return;
     }
 
+    const handleCloseForm = () => {
+        setFormOpen(false);
+        setFormText('')
+    }
+
     const renderAddButton = () => {
         const { list } = props;
 
@@ -121,7 +126,7 @@ const TaskbanActionButton = (props) => {
                             backgroundColor: "#5aac44"
                         }}
                     >{buttonTitle} </Button>
-                    <Icon style={{ marginLeft: 8, cursor: "pointer" }}>close</Icon>
+                    <Icon style={{ marginLeft: 8, cursor: "pointer" }} onClick={()=>handleCloseForm()}>close</Icon>
                 </FormButtonGroup>
             </div>
         );
