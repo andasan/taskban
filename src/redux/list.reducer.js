@@ -38,6 +38,19 @@ const listReducer = (state = initState, action) => {
                 id: uuidv4()
             }
             return [...state, newList]
+        case "UPDATE_LIST_TITLE":{
+            const newState = state.map(list => {
+                if(list.id === action.payload.id){
+                    return{
+                        ...list,
+                        title: action.payload.title
+                    }
+                }else{
+                    return list;
+                }
+            })
+            return newState;
+        }
         case "DRAG_HAPPENED":{
             const {droppableIdStart, droppableIdEnd, droppableIndexStart, droppableIndexEnd, type} = action.payload;
             const newState = [...state];
@@ -70,7 +83,7 @@ const listReducer = (state = initState, action) => {
                 //add the card to new list
                 listEnd.cards.splice(droppableIndexEnd, 0, ...card);
             }
-            
+
             return newState;
         }
         default:

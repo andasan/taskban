@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import styled from "styled-components";
 import Popup from 'reactjs-popup';
@@ -51,9 +52,21 @@ const InfoButton = styled.div`
 const TaskbanList = ({ listId, title, cards, index }) => {
     const [toggleHover, setToggleHover] = useState(false);
 
+    const dispatch = useDispatch();
+
     const handleInfoButton = () => {
         //open overlay/popup
         console.log("clicked");
+    }
+
+    const handleUpdateTitle = (value, listId) => {
+        dispatch({
+            type:  "UPDATE_LIST_TITLE",
+            payload: {
+                id: listId,
+                title: value
+            }
+        })
     }
 
     return (
@@ -84,7 +97,8 @@ const TaskbanList = ({ listId, title, cards, index }) => {
                                         labelFontWeight='bold'
                                         inputFontWeight='bold'
                                         // onFocus={this._handleFocus}
-                                        // onFocusOut={this._handleFocusOut}
+                                        onFocusOut={(value) => handleUpdateTitle(value, listId)}
+                                        onEnterPress={(value) => handleUpdateTitle(value, listId)}
                                     />
                                     {
                                         toggleHover && (
