@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import EditIcon from '@material-ui/icons/Edit';
 import styled from "styled-components";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 import EditableLabel from 'react-inline-editing';
 
 import TaskbanCard from "./TaskbanCard";
@@ -53,15 +51,31 @@ const TaskbanList = ({ listId, title, cards, index }) => {
     const [toggleHover, setToggleHover] = useState(false);
 
     const dispatch = useDispatch();
+    const editLabel = useRef();
 
     const handleInfoButton = () => {
-        //open overlay/popup
-        console.log("clicked");
+        // editLabel.current.state.isEditing = true;
+        // editLabel.current.render();
+        if(!editLabel.current.state.isEditing){
+            // editLabel.click();
+            // console.log(editLabel.current._reactInternals.child.child.pendingProps.onClick());
+            // console.log(editLabel.current);
+            editLabel.current._reactInternals.child.child.pendingProps.onClick();
+        }
+    }
+
+    const handleFocus = () => {
+        console.log("FOCUS")
+    }
+
+    const handleEditLabel = () => {
+        
+        // console.log(editLabel.current.state.isEditing);
     }
 
     const handleUpdateTitle = (value, listId) => {
         dispatch({
-            type:  "UPDATE_LIST_TITLE",
+            type: "UPDATE_LIST_TITLE",
             payload: {
                 id: listId,
                 title: value
@@ -87,7 +101,8 @@ const TaskbanList = ({ listId, title, cards, index }) => {
                             <div {...provided.droppableProps} ref={provided.innerRef}>
                                 <HeaderContainer>
                                     {/* <h4 style={{ textTransform: "capitalize", padding: "12px 0" }}>{title}</h4> */}
-                                    <EditableLabel 
+                                    <EditableLabel
+                                        ref={editLabel}
                                         text={title}
                                         labelClassName='myLabelClass'
                                         inputClassName='myInputClass'
@@ -96,16 +111,12 @@ const TaskbanList = ({ listId, title, cards, index }) => {
                                         inputMaxLength={50}
                                         labelFontWeight='bold'
                                         inputFontWeight='bold'
-                                        // onFocus={this._handleFocus}
+                                        // onFocus={handleFocus}
                                         onFocusOut={(value) => handleUpdateTitle(value, listId)}
                                         onEnterPress={(value) => handleUpdateTitle(value, listId)}
                                     />
                                     {
-                                        toggleHover && (
-                                            <Popup trigger={<InfoButton onClick={handleInfoButton}><MoreHorizIcon /></InfoButton>} position="right center">
-                                                <div>Popup content here !!</div>
-                                            </Popup>
-                                        )
+                                        toggleHover && <InfoButton onClick={handleInfoButton}><EditIcon fontSize="small" /></InfoButton>
                                     }
 
                                 </HeaderContainer>

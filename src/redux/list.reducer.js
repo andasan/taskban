@@ -2,12 +2,17 @@ import { v4 as uuidv4 } from 'uuid';
 
 const initState = [
     {
-        title: "Backlog",
+        title: "Feature",
         id: uuidv4(),
         cards: []
     },
     {
         title: "Todo",
+        id: uuidv4(),
+        cards: []
+    },
+    {
+        title: "Completed",
         id: uuidv4(),
         cards: []
     }

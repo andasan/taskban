@@ -5,6 +5,10 @@ import CardContent from "@material-ui/core/CardContent";
 import { Draggable } from "react-beautiful-dnd";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import styled from "styled-components";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
+import TaskbanModal from "./TaskbanModal";
 
 const CardContainer = styled.div`
   margin-bottom: 8px;
@@ -35,7 +39,17 @@ const TaskbanCard = ({ text, id, index }) => {
                         onMouseLeave={() => setToggleHover(false)}
                     >
                         <InfoButton>
-                            {toggleHover && <MoreHorizIcon />}
+                            {toggleHover && (
+                                <Popup
+                                trigger={<InfoButton><MoreHorizIcon /></InfoButton>}
+                                modal
+                                nested
+                            >
+                                {close => (
+                                    <TaskbanModal close={close} />
+                                )}
+                            </Popup>
+                            )}
                         </InfoButton>
                         <CardContent>
                             <Typography color="textSecondary" gutterBottom>
