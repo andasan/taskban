@@ -23,7 +23,7 @@ const InfoButton = styled.div`
   padding: 5px;
 `;
 
-const TaskbanCard = ({ text, id, index }) => {
+const TaskbanCard = ({ text, id, index, listId }) => {
     const [toggleHover, setToggleHover] = useState(false);
 
     return (
@@ -34,29 +34,31 @@ const TaskbanCard = ({ text, id, index }) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                 >
-                    <Card
-                        onMouseEnter={() => setToggleHover(true)}
-                        onMouseLeave={() => setToggleHover(false)}
-                    >
-                        <InfoButton>
-                            {toggleHover && (
-                                <Popup
-                                trigger={<InfoButton><MoreHorizIcon /></InfoButton>}
-                                modal
-                                nested
+                    <Popup
+                        trigger={
+                            <Card
+                                onMouseEnter={() => setToggleHover(true)}
+                                onMouseLeave={() => setToggleHover(false)}
                             >
-                                {close => (
-                                    <TaskbanModal close={close} />
-                                )}
-                            </Popup>
-                            )}
-                        </InfoButton>
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                                {text}
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                                <InfoButton>
+                                    {toggleHover && (
+                                        <InfoButton><MoreHorizIcon /></InfoButton>
+                                    )}
+                                </InfoButton>
+                                <CardContent style={{ marginTop: "12px" }}>
+                                    <Typography color="textSecondary" gutterBottom>
+                                        {text}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        }
+                        modal
+                        nested
+                    >
+                        {close => (
+                            <TaskbanModal close={close} text={text} listId={listId} cardId={id} />
+                        )}
+                    </Popup>
                 </CardContainer>
             )}
         </Draggable>

@@ -53,26 +53,12 @@ const TaskbanList = ({ listId, title, cards, index }) => {
     const dispatch = useDispatch();
     const editLabel = useRef();
 
-    const handleInfoButton = () => {
-        // editLabel.current.state.isEditing = true;
-        // editLabel.current.render();
+    const handleEditButton = () => {
         if(!editLabel.current.state.isEditing){
-            // editLabel.click();
-            // console.log(editLabel.current._reactInternals.child.child.pendingProps.onClick());
-            // console.log(editLabel.current);
             editLabel.current._reactInternals.child.child.pendingProps.onClick();
         }
     }
-
-    const handleFocus = () => {
-        console.log("FOCUS")
-    }
-
-    const handleEditLabel = () => {
-        
-        // console.log(editLabel.current.state.isEditing);
-    }
-
+    
     const handleUpdateTitle = (value, listId) => {
         dispatch({
             type: "UPDATE_LIST_TITLE",
@@ -116,16 +102,17 @@ const TaskbanList = ({ listId, title, cards, index }) => {
                                         onEnterPress={(value) => handleUpdateTitle(value, listId)}
                                     />
                                     {
-                                        toggleHover && <InfoButton onClick={handleInfoButton}><EditIcon fontSize="small" /></InfoButton>
+                                        toggleHover && <InfoButton onClick={handleEditButton}><EditIcon fontSize="small" /></InfoButton>
                                     }
 
                                 </HeaderContainer>
-                                {cards.map((card, index) => (
+                                {cards && cards.map((card, index) => (
                                     <TaskbanCard
                                         key={card.id}
                                         index={index}
                                         text={card.text}
                                         id={card.id}
+                                        listId={listId}
                                     />
                                 ))}
                                 {provided.placeholder}

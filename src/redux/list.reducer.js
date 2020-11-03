@@ -4,7 +4,10 @@ const initState = [
     {
         title: "Feature",
         id: uuidv4(),
-        cards: []
+        cards: [{
+            id: '123124123',
+            text: 'test'
+        }]
     },
     {
         title: "Todo",
@@ -55,6 +58,33 @@ const listReducer = (state = initState, action) => {
                 }
             })
             return newState;
+        }
+        case "UPDATE_CARD_TEXT":{
+            const newState = state.map(list => {
+                if(list.id === action.payload.listId){
+                    const newCardState = list.cards.map(card => {
+                        if(card.id === action.payload.cardId){
+                            return {
+                                ...card,
+                                text: action.payload.text
+                            }
+                        }else{
+                            return card;
+                        }
+                    });
+                    console.log(newCardState);
+                    return {
+                        ...list,
+                        cards: [...newCardState]
+                    };
+                }else{
+                    return list;
+                }
+            });
+            console.log('newstate: ', newState);
+            return newState;
+            // return state;
+
         }
         case "DRAG_HAPPENED":{
             const {droppableIdStart, droppableIdEnd, droppableIndexStart, droppableIndexEnd, type} = action.payload;
