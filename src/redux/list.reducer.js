@@ -36,8 +36,20 @@ const listReducer = (state = initState, action) => {
                 }
             })
             return newState;
-        case "DELETE_CARD":
-            return state;
+        case "DELETE_CARD":{
+            const newState = state.map(list => {
+                if(list.id === action.payload.listId){
+                    const newCardState = list.cards.filter(card => card.id !== action.payload.cardId);
+                    return {
+                        ...list,
+                        cards: [...newCardState]
+                    };
+                }else{
+                    return list;
+                }
+            });
+            return newState;
+        }
         case "ADD_LIST":
             const newList = {
                 title: action.payload,
@@ -71,7 +83,6 @@ const listReducer = (state = initState, action) => {
                             return card;
                         }
                     });
-                    console.log(newCardState);
                     return {
                         ...list,
                         cards: [...newCardState]
@@ -81,8 +92,6 @@ const listReducer = (state = initState, action) => {
                 }
             });
             return newState;
-            // return state;
-
         }
         case "DRAG_HAPPENED":{
             const {droppableIdStart, droppableIdEnd, droppableIndexStart, droppableIndexEnd, type} = action.payload;
