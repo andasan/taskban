@@ -4,10 +4,7 @@ const initState = [
     {
         title: "Feature",
         id: uuidv4(),
-        cards: [{
-            id: '123124123',
-            text: 'test'
-        }]
+        cards: []
     },
     {
         title: "Todo",
@@ -39,6 +36,8 @@ const listReducer = (state = initState, action) => {
                 }
             })
             return newState;
+        case "DELETE_CARD":
+            return state;
         case "ADD_LIST":
             const newList = {
                 title: action.payload,
@@ -81,7 +80,6 @@ const listReducer = (state = initState, action) => {
                     return list;
                 }
             });
-            console.log('newstate: ', newState);
             return newState;
             // return state;
 

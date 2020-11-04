@@ -39,6 +39,10 @@
     border: 1px solid #cfcece;
 }
 
+.inlineEditContainer{
+  flex: 1;
+}
+
 /* animation */
 
 @keyframes anvil {

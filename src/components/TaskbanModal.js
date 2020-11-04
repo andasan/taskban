@@ -26,12 +26,13 @@ const InfoButton = styled.div`
 const TaskbanModal = ({ close, text, listId, cardId }) => {
 
     const dispatch = useDispatch();
-    const editLabel = useRef();
+    const editCardLabel = useRef();
 
     const handleEditButton = () => {
-        if(!editLabel.current.state.isEditing){
-            editLabel.current._reactInternals.child.child.pendingProps.onClick();
+        if(!editCardLabel.current.state.isEditing){
+            editCardLabel.current._reactInternals.child.child.pendingProps.onClick();
         }
+        console.log(editCardLabel.current.state);
     }
 
     const handleUpdateText = (value) => {
@@ -53,21 +54,21 @@ const TaskbanModal = ({ close, text, listId, cardId }) => {
                 &times;
             </button>
             <div className="header">
-            <EditableLabel
-                ref={editLabel}
-                text={text}
-                labelClassName='myLabelClass'
-                inputClassName='myInputClass'
-                inputWidth='100%'
-                inputHeight='25px'
-                inputMaxLength={150}
-                labelFontWeight='bold'
-                inputFontWeight='bold'
-                // onFocus={handleFocus}
-                onFocusOut={(value) => handleUpdateText(value)}
-                onEnterPress={(value) => handleUpdateText(value)}
-            />
-            <InfoButton onClick={handleEditButton}><EditIcon fontSize="small" /></InfoButton>
+                <EditableLabel
+                    ref={editCardLabel}
+                    text={text}
+                    labelClassName='myModalLabelClass'
+                    inputClassName='myModalInputClass'
+                    inputWidth='100%'
+                    inputHeight='25px'
+                    inputMaxLength={150}
+                    labelFontWeight='bold'
+                    inputFontWeight='bold'
+                    // onFocus={handleFocus}
+                    onFocusOut={(value) => handleUpdateText(value)}
+                    onEnterPress={(value) => handleUpdateText(value)}
+                />
+                <InfoButton onClick={handleEditButton}><EditIcon fontSize="small" /></InfoButton>
             </div>
             <div className="content">Test</div>
             <div className="actions">
