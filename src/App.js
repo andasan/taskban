@@ -5,12 +5,27 @@ import styled from "styled-components";
 
 import TaskbanList from "./components/TaskbanList";
 import TrelloActionButton from "./components/TaskbanActionButton";
+import TaskBanLogo from "./assets/images/taskban.png";
 
 const AppContainer = styled.div`
   background-color: #301728FF;
   height: 100vh;
   padding: 50px;
 `;
+
+const HeaderContainer = styled.div`
+  width: 100%;
+  height: 52px;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LogoContainer = styled.img`
+  height: 50px;
+`;
+
 const ListContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -43,6 +58,9 @@ function App() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <AppContainer>
+        <HeaderContainer>
+          <LogoContainer src={TaskBanLogo} alt="taskban logo" />
+        </HeaderContainer>
         <Droppable droppableId="all-lists" direction="horizontal" type="list">
           {(provided, snapshot) => (
             <ListContainer 
