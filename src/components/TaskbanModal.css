@@ -1,5 +1,7 @@
 .modal {
     font-size: 18px;
+    padding: 25px;
+    border-radius: 30px;
 }
 
 .modal>.header {

@@ -7,7 +7,7 @@ import TaskbanList from "./components/TaskbanList";
 import TrelloActionButton from "./components/TaskbanActionButton";
 
 const AppContainer = styled.div`
-  background-color: orange;
+  background-color: #301728FF;
   height: 100vh;
   padding: 50px;
 `;

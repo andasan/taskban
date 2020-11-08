@@ -9,7 +9,7 @@ import TaskbanCard from "./TaskbanCard";
 import TaskbanActionButton from "./TaskbanActionButton";
 
 const Container = styled.div`
-  background-color: #dfe3e6;
+  background-color: #F7CED7FF;
   border-radius: 3px;
   width: 300px;
   height: 100%;

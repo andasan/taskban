@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from "react-redux";
 import 'reactjs-popup/dist/index.css';
 import EditableLabel from 'react-inline-editing';
@@ -26,7 +26,7 @@ const OptionsButton = styled.div`
 `;
 
 const TaskbanModal = ({ close, text, listId, cardId }) => {
-
+    const [toggleHide, setToggleHide] = useState(false);
     const dispatch = useDispatch();
     const editCardLabel = useRef();
 
@@ -34,6 +34,7 @@ const TaskbanModal = ({ close, text, listId, cardId }) => {
         if(!editCardLabel.current.state.isEditing){
             editCardLabel.current._reactInternals.child.child.pendingProps.onClick();
         }
+        setToggleHide(true);
     }
 
     const handleDeleteButton = () => {
@@ -46,15 +47,16 @@ const TaskbanModal = ({ close, text, listId, cardId }) => {
         })
     }
 
-    const handleUpdateText = (value) => {
-        dispatch({
+    const handleUpdateText = async (value) => {
+        await dispatch({
             type: "UPDATE_CARD_TEXT",
             payload: {
                 listId: listId,
                 cardId: cardId,
                 text: value
             }
-        })
+        });
+        setToggleHide(false);
     }
 
     return (
@@ -73,13 +75,16 @@ const TaskbanModal = ({ close, text, listId, cardId }) => {
                     inputMaxLength={150}
                     labelFontWeight='bold'
                     inputFontWeight='bold'
-                    // onFocus={handleFocus}
+                    onFocus={() => setToggleHide(true)}
                     onFocusOut={(value) => handleUpdateText(value)}
                     onEnterPress={(value) => handleUpdateText(value)}
                 />
-                <OptionsButton onClick={handleEditButton}>
-                    <EditIcon fontSize="small" />
-                </OptionsButton>
+                {
+                    !toggleHide && 
+                    <OptionsButton onClick={handleEditButton}>
+                        <EditIcon fontSize="small" />
+                    </OptionsButton>
+                }
                 <OptionsButton onClick={handleDeleteButton}>
                     <DeleteIcon fontSize="small" />
                 </OptionsButton>

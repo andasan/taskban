@@ -13,6 +13,10 @@ import TaskbanModal from "./TaskbanModal";
 const CardContainer = styled.div`
   margin-bottom: 8px;
   position: relative;
+
+  &:hover{
+      cursor: pointer;
+  }
 `;
 
 const InfoButton = styled.div`
@@ -39,6 +43,7 @@ const TaskbanCard = ({ text, id, index, listId }) => {
                             <Card
                                 onMouseEnter={() => setToggleHover(true)}
                                 onMouseLeave={() => setToggleHover(false)}
+                                style={{backgroundColor:"#F1F3FFFF"}}
                             >
                                 <InfoButton>
                                     {toggleHover && (
