@@ -9,7 +9,7 @@ import TaskBanLogo from "./assets/images/taskban.png";
 
 const AppContainer = styled.div`
   background-color: #301728FF;
-  height: 100vh;
+  min-height: 100vh;
   padding: 50px;
 `;
 
