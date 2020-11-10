@@ -86,7 +86,6 @@ const TaskbanList = ({ listId, title, cards, index }) => {
                         {(provided) => (
                             <div {...provided.droppableProps} ref={provided.innerRef}>
                                 <HeaderContainer>
-                                    {/* <h4 style={{ textTransform: "capitalize", padding: "12px 0" }}>{title}</h4> */}
                                     <EditableLabel
                                         ref={editLabel}
                                         text={title}
